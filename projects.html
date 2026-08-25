@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZACH ARCHIBALD — Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --black:#141210;--ivory:#efe6d0;--red:#d4271f;--yellow:#f5c518;
+    --cobalt:#1f5fd4;--green:#0f7a4f;
+    --marker:'Permanent Marker',cursive;--scrawl:'Rock Salt',cursive;
+    --body:'Archivo',system-ui,sans-serif;
+  }
+  html,body{min-height:100%}
+  body{background:var(--ivory);color:var(--black);font-family:var(--body);
+    -webkit-font-smoothing:antialiased;display:flex;align-items:center;
+    justify-content:center;padding:32px 22px;position:relative;overflow-x:hidden}
+  main{position:relative;z-index:1;text-align:center;max-width:560px;width:100%}
+
+  .eyebrow{font-family:var(--scrawl);font-size:13px;letter-spacing:.05em;
+    display:inline-block;background:#fff;padding:3px 12px;
+    border:2px solid var(--black);transform:rotate(-1.5deg);
+    box-shadow:3px 3px 0 var(--black);margin-bottom:34px}
+
+  h1{font-family:var(--marker);font-size:clamp(44px,11vw,88px);line-height:.9;
+    margin-bottom:8px}
+  .tape{display:inline-block;background:var(--yellow);border:3px solid var(--black);
+    box-shadow:6px 6px 0 var(--black);padding:16px 26px;transform:rotate(-1.4deg);
+    margin:22px 0 30px}
+  .tape .big{font-family:var(--marker);font-size:clamp(26px,6vw,44px);line-height:1}
+  .tape .small{font-family:var(--scrawl);font-size:12px;margin-top:8px}
+
+  .msg{font-size:17px;font-weight:600;max-width:42ch;margin:0 auto 38px;line-height:1.6}
+
+  /* barrier stripes */
+  .stripes{height:22px;margin:0 auto 40px;max-width:420px;border:2px solid var(--black);
+    background:repeating-linear-gradient(45deg,var(--yellow),var(--yellow) 14px,
+      var(--black) 14px,var(--black) 28px);box-shadow:4px 4px 0 rgba(20,18,16,.25)}
+
+  .home{display:inline-block;font-family:var(--marker);font-size:18px;
+    text-decoration:none;color:var(--ivory);background:var(--cobalt);
+    border:3px solid var(--black);box-shadow:6px 6px 0 var(--black);
+    padding:12px 26px;transform:rotate(.6deg);
+    transition:transform .12s ease,box-shadow .12s ease}
+  .home:hover{transform:translate(-3px,-3px) rotate(0);box-shadow:10px 10px 0 var(--black)}
+  .home:focus-visible{outline:4px dashed var(--black);outline-offset:5px}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}
+    .tape,.eyebrow,.home,h1{transform:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <h1>PROJECTS</h1>
+
+  <div class="tape">
+    <div class="big">UNDER CONSTRUCTION</div>
+    <div class="small">work in progress — check back soon</div>
+  </div>
+
+  <div class="stripes" aria-hidden="true"></div>
+
+  <p class="msg">This page is still being built. The projects are coming — in the meantime, the code lives on GitHub.</p>
+
+  <a class="home" href="/index.html">← back home</a>
+</main>
+</body>
+</html>
