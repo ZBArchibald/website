@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZACH ARCHIBALD — Portfolio</title>
+<meta name="description" content="Selected work by Zach Archibald, backend + data engineer.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --black:#141210;--ivory:#f2e8c9;--red:#d4271f;--yellow:#f5c518;
+    --cobalt:#1f5fd4;--green:#0f7a4f;
+    --marker:'Permanent Marker',cursive;--scrawl:'Rock Salt',cursive;
+    --body:'Archivo',system-ui,sans-serif;
+  }
+  html{background:var(--ivory)}
+  body{background:var(--ivory);color:var(--black);font-family:var(--body);
+    line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+
+  /* ---------- header ---------- */
+  .top{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0}
+  .back{display:inline-block;font-family:var(--marker);font-size:15px;text-decoration:none;
+    color:var(--black);background:#fff;border:3px solid var(--black);
+    box-shadow:3px 3px 0 var(--black);padding:6px 14px;
+    transition:transform .12s,box-shadow .12s}
+  .back:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--black)}
+  .back:focus-visible{outline:3px dashed var(--black);outline-offset:3px}
+  .count{font-family:var(--scrawl);font-size:11px;letter-spacing:.06em;opacity:.6;
+    text-transform:uppercase}
+
+  .hero{padding:48px 0 0}
+  h1{font-family:var(--marker);font-weight:400;line-height:1;font-size:clamp(56px,14vw,112px);
+    color:#fff;-webkit-text-stroke:2px var(--black);paint-order:stroke fill;
+    filter:drop-shadow(4px 4px 0 var(--black))}
+  .lede{margin-top:16px;font-size:clamp(17px,2.4vw,20px);font-weight:600;max-width:52ch}
+  .sp{height:4px;background:var(--black);margin:34px 0 46px;transform:rotate(.35deg)}
+
+  /* ---------- case studies ---------- */
+  .work{display:flex;flex-direction:column;gap:64px}
+  .case{--accent:var(--cobalt);position:relative;background:#fff;
+    border:3px solid var(--black);box-shadow:9px 9px 0 var(--black);
+    transform:rotate(-.5deg)}
+  .case:nth-child(2){--accent:var(--green);transform:rotate(.5deg)}
+  .case-head{background:var(--accent);color:var(--ivory);
+    border-bottom:3px solid var(--black);padding:22px 24px 20px;
+    display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+  .case-num{font-family:var(--marker);font-size:15px;opacity:.85;display:block;margin-bottom:6px}
+  .case h2{font-family:var(--marker);font-weight:400;font-size:clamp(28px,5vw,42px);line-height:1}
+  .case .tagline{margin-top:10px;font-family:var(--marker);font-size:16px;line-height:1.25}
+  .case .meta{font-size:13px;font-weight:600;margin-top:10px;opacity:.9}
+  .status{flex:none;font-weight:800;font-size:10px;text-transform:uppercase;letter-spacing:.08em;
+    padding:3px 9px;border:2px solid var(--black);border-radius:999px;
+    box-shadow:2px 2px 0 var(--black);background:var(--yellow);color:var(--black);margin-top:4px}
+  .status.shipped{background:#fff}
+
+  .case-body{display:grid;grid-template-columns:1.15fr 1fr;gap:26px;padding:26px 24px 28px}
+
+  /* screenshot frame */
+  .shot{border:3px solid var(--black);box-shadow:5px 5px 0 var(--black);background:var(--ivory);
+    align-self:start}
+  .shot .bar{display:flex;gap:6px;padding:7px 9px;border-bottom:3px solid var(--black);background:#fff}
+  .shot .bar i{width:10px;height:10px;border:2px solid var(--black);border-radius:50%}
+  .shot .bar i:nth-child(1){background:var(--red)}
+  .shot .bar i:nth-child(2){background:var(--yellow)}
+  .shot .bar i:nth-child(3){background:var(--green)}
+  .shot img{display:block;width:100%;height:auto}
+  /* tabs live in the window's title bar */
+  .shot .bar{align-items:center}
+  .tabs{margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+  .tabs button{font-family:var(--marker);font-size:12px;line-height:1;color:var(--black);
+    background:var(--ivory);border:2px solid var(--black);padding:4px 9px;cursor:pointer;
+    transition:transform .12s,box-shadow .12s}
+  .tabs button[aria-selected="true"]{background:var(--accent);color:var(--ivory);
+    box-shadow:2px 2px 0 var(--black)}
+  .tabs button:hover{transform:translate(-1px,-1px)}
+  .tabs button:focus-visible{outline:3px dashed var(--black);outline-offset:2px}
+
+  /* wide layout: full-width landscape window (~letter, 11 x 8.5), story below */
+  .wide .case-body{grid-template-columns:1fr}
+  .wide .story{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .wide .panel{aspect-ratio:11/8.5}
+  .wide .panel a,.wide .panel img{display:block;width:100%;height:100%}
+  .wide .panel img{object-fit:contain;background:#020611}
+  .wide .panel[hidden]{display:none}
+  /* diagrams are fixed 1100x850 pages, scaled down to the panel width by script */
+  .wide .panel.diagram{position:relative;overflow:hidden;background:var(--ivory)}
+  .panel.diagram iframe{position:absolute;top:0;left:0;width:1100px;height:850px;border:0;
+    transform-origin:0 0;pointer-events:none}
+  .panel.diagram .enlarge{position:absolute;inset:0;z-index:1}
+
+  .story{display:flex;flex-direction:column;gap:16px}
+  .story h3{font-family:var(--marker);font-weight:400;font-size:15px;line-height:1;
+    display:inline-block;border-bottom:3px solid var(--accent);padding-bottom:2px;margin-bottom:6px}
+  .story p{font-size:15px}
+
+  /* figure frame with a scrawled label (project 02) */
+  .pipe{border:3px solid var(--black);box-shadow:5px 5px 0 var(--black);background:var(--ivory);
+    padding:16px 16px 18px;align-self:start}
+  .pipe-label{font-family:var(--scrawl);font-size:10px;text-transform:uppercase;
+    letter-spacing:.06em;opacity:.65;margin-bottom:12px}
+
+  .fractal img{display:block;width:100%;height:auto;background:#fff;
+    border:2px solid var(--black)}
+  .fractal figcaption{font-size:12px;line-height:1.45;margin-top:10px;opacity:.8}
+
+  /* under the hood */
+  .hood{border-top:3px solid var(--black);padding:24px 24px 26px}
+  .hood h3{font-family:var(--marker);font-weight:400;font-size:15px;line-height:1;
+    display:inline-block;border-bottom:3px solid var(--accent);padding-bottom:2px;margin-bottom:14px}
+  .hood ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 28px}
+  .hood li{position:relative;padding-left:20px;font-size:14px}
+  .hood li::before{content:"";position:absolute;left:0;top:.45em;width:9px;height:9px;
+    background:var(--accent);border:2px solid var(--black)}
+  .hood li strong{font-weight:800}
+  .next{display:inline-block;margin-top:24px;background:var(--yellow);border:3px solid var(--black);
+    box-shadow:4px 4px 0 var(--black);padding:10px 16px;transform:rotate(-.8deg);font-size:14px;max-width:62ch}
+  .next b{font-family:var(--marker);font-weight:400;margin-right:6px}
+
+  .case-foot{border-top:3px solid var(--black);padding:16px 24px;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+  .stack li{font-weight:700;font-size:12px;padding:3px 10px;border:2px solid var(--black);
+    background:var(--ivory)}
+  .links{display:flex;gap:12px}
+  .btn{font-family:var(--marker);font-size:15px;text-decoration:none;color:var(--ivory);
+    background:var(--accent);border:3px solid var(--black);box-shadow:4px 4px 0 var(--black);
+    padding:6px 16px;transition:transform .12s,box-shadow .12s}
+  .btn.alt{background:#fff;color:var(--black)}
+  .btn:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--black)}
+  .btn:focus-visible{outline:3px dashed var(--black);outline-offset:3px}
+
+  footer{padding:70px 0 70px}
+  .rule{height:4px;background:var(--black);margin-bottom:20px;transform:rotate(-.4deg)}
+  .foot{font-family:var(--marker);font-size:12px}
+
+  @media(max-width:720px){
+    .case-body{grid-template-columns:1fr}
+    .hood ul{grid-template-columns:1fr}
+    .wide .story{grid-template-columns:1fr;gap:16px}
+    .shot .bar i{display:none}
+    .tabs{margin-left:0;justify-content:flex-start}
+    .case-head{flex-direction:column-reverse;gap:10px}
+  }
+  @media(prefers-reduced-motion:reduce){*{transition:none!important}
+    .case,.sp,.rule,.next{transform:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <a class="back" href="/">← home</a>
+    <span class="count">2 projects</span>
+  </header>
+
+  <section class="hero">
+    <h1>PORTFOLIO</h1>
+    <p class="lede">One thing I built and one thing I proved: the problem, the approach, and how it turned out.</p>
+  </section>
+
+  <div class="sp" aria-hidden="true"></div>
+
+  <main class="work">
+
+    <!-- ===== PROJECT 01 ===== -->
+    <article class="case wide">
+      <div class="case-head">
+        <div>
+          <span class="case-num">01</span>
+          <h2>LOL DRAFT TOOL</h2>
+          <div class="tagline">Champion pick recommendations from challenger match data</div>
+        </div>
+        <span class="status">In progress</span>
+      </div>
+
+      <div class="case-body">
+        <figure class="shot tabbed">
+          <div class="bar">
+            <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
+            <div class="tabs" role="tablist" aria-label="Project views">
+              <button role="tab" id="ldt-tab-shot" aria-controls="ldt-shot" aria-selected="true">CLIENT SCREENSHOT</button>
+              <button role="tab" id="ldt-tab-sys" aria-controls="ldt-sys" aria-selected="false" tabindex="-1">SYSTEM OVERVIEW</button>
+              <button role="tab" id="ldt-tab-mod" aria-controls="ldt-mod" aria-selected="false" tabindex="-1">BACKEND ARCHITECTURE</button>
+            </div>
+          </div>
+          <div class="panel" role="tabpanel" id="ldt-shot" aria-labelledby="ldt-tab-shot">
+            <a href="img/ldt-screenshot.png" target="_blank" rel="noopener" title="Open full size">
+              <img src="img/ldt-screenshot.png" width="1440" height="664"
+                alt="The draft board: your team and enemy team pick slots on either side, ban rows below, and a ranked list of recommended champions in the middle">
+            </a>
+          </div>
+          <div class="panel diagram" role="tabpanel" id="ldt-sys" aria-labelledby="ldt-tab-sys" hidden>
+            <iframe src="ldt-system-overview.html" width="1100" height="850" loading="lazy" tabindex="-1"
+              title="System overview: the React client on Cloudflare Pages, the FastAPI service on Cloud Run, Neon Postgres, GitHub Actions workflows, and the Riot API and Data Dragon CDN"></iframe>
+            <a class="enlarge" href="ldt-system-overview.html" target="_blank" rel="noopener" title="Open full size"
+              aria-label="Open the system overview diagram full size"></a>
+          </div>
+          <div class="panel diagram" role="tabpanel" id="ldt-mod" aria-labelledby="ldt-tab-mod" hidden>
+            <iframe src="ldt-backend-architecture.html" width="1100" height="850" loading="lazy" tabindex="-1"
+              title="Backend architecture: main.py and api/ on the request path, cli.py and pipeline/ on the batch path, both using services, domain and db/, with external/riot_api.py calling the Riot API and Data Dragon"></iframe>
+            <a class="enlarge" href="ldt-backend-architecture.html" target="_blank" rel="noopener" title="Open full size"
+              aria-label="Open the backend architecture diagram full size"></a>
+          </div>
+        </figure>
+
+        <div class="story">
+          <div>
+            <h3>THE PROBLEM</h3>
+            <p>In a League of Legends draft you lock in a champion knowing only part of both teams. Tier lists rate champions in isolation, but a pick's value depends on who it's next to and who it's up against.</p>
+          </div>
+          <div>
+            <h3>WHAT I BUILT</h3>
+            <p>A pipeline that ingests every current-patch game played by challenger-ranked players and turns it into per-champion and champion-vs-champion win statistics. A recommendation engine then ranks every viable pick for your role against the draft as it stands.</p>
+          </div>
+          <div>
+            <h3>THE RESULT</h3>
+            <p>A live draft board: enter bans and picks as they happen and get a ranked list of champions, scored from real high-elo games on the current patch. The data refreshes itself twice a day with no manual work.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hood">
+        <h3>UNDER THE HOOD</h3>
+        <ul>
+          <li><strong>Rate limiter.</strong> A thread-safe sliding window keeps the sync inside Riot's two limits (20 requests/sec, 100 per 2 min), with retry and backoff.</li>
+          <li><strong>Incremental sync.</strong> Each player resumes from a checkpoint, games shared between players are de-duplicated, and writes are batched per player.</li>
+          <li><strong>Patch-aware.</strong> A daily job detects a new game patch and resets the statistics, so recommendations never mix old and new balance changes.</li>
+          <li><strong>Model-ready storage.</strong> Every match is stored as a role-by-role row of champion picks and the result, ready to train on.</li>
+          <li><strong>Push-to-deploy.</strong> The API redeploys to Cloud Run from GitHub Actions through Workload Identity Federation, with no stored cloud credentials.</li>
+          <li><strong>Lean API.</strong> Two endpoints, one for champion metadata and one for recommendations, typed end to end with Pydantic.</li>
+        </ul>
+        <div class="next"><b>NEXT UP:</b>replacing the naive recommendation algorithm with a neural network based machine learning solution.</div>
+      </div>
+
+      <div class="case-foot">
+        <ul class="stack" aria-label="Tech stack">
+          <li>Python</li><li>PostgreSQL</li><li>FastAPI</li><li>GitHub Actions</li><li>Cloud Run</li>
+        </ul>
+        <div class="links">
+          <a class="btn alt" href="https://github.com/ZBArchibald/lol_draft_tool" target="_blank" rel="noopener">CODE ↗</a>
+          <a class="btn" href="https://ldt.zbarchibald.com" target="_blank" rel="noopener">TRY IT ↗</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ===== PROJECT 02 ===== -->
+    <article class="case">
+      <div class="case-head">
+        <div>
+          <span class="case-num">02</span>
+          <h2>UNDECIDABILITY IN FRACTAL GEOMETRY</h2>
+          <div class="tagline">A proof that no algorithm can (always) answer a simple question</div>
+          <div class="meta">Undergraduate research course with Dr. Alp Uzman · Dec 2024</div>
+        </div>
+        <span class="status shipped">Complete</span>
+      </div>
+
+      <div class="case-body">
+        <figure class="pipe fractal">
+          <div class="pipe-label">from the paper</div>
+          <img src="img/fractal-diagonal.png" width="1016" height="917"
+            alt="A rotated, scaled Sierpinski gasket in the unit square, crossed by the line segment from (0,0) to (1,1)">
+          <figcaption>The paper's opening example: a Sierpiński gasket, rotated 30°, halved and shifted, against the diagonal line segment from (0,0) to (1,1). Does the line intersect the fractal, or pass through its gaps? Checking ever-finer approximations can prove the line misses, but never that it intersects. For fractals in general, no algorithm can always decide whether the two intersect.</figcaption>
+        </figure>
+
+        <div class="story">
+          <div>
+            <h3>THE QUESTION</h3>
+            <p>A fractal is a shape built from smaller copies of itself at every scale. One way to make one is an iterated function system: a set of shrinking maps that, applied over and over, settle on a single shape called the attractor. Take such a fractal in the unit square, along with the diagonal from (0,0) to (1,1). Do they intersect? The obvious method, refining the fractal until the line misses it, never stops when they do intersect. Is there any algorithm that always answers this question?</p>
+          </div>
+          <div>
+            <h3>THE APPROACH</h3>
+            <p>Simant Dube proved the answer is no in 1993, as one result in a paper built to prove many. I isolated that single proof and rebuilt it for classmates with no background in computability: a reduction from the Infinite Post Correspondence Problem, known to be undecidable. Dube's interpretation function reads strings as base-(k+1) numbers, so each PCP instance becomes a set of maps that "append" word pairs, and a matching sequence exists exactly when the fractal intersects the diagonal.</p>
+          </div>
+          <div>
+            <h3>THE RESULT</h3>
+            <p>An 8-page self-contained write-up with full proofs, and a 10-minute talk at the end of the semester that took the class from "what is a decision problem?" to the undecidability result.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-foot">
+        <ul class="stack" aria-label="Topics">
+          <li>Computability</li><li>Fractal geometry</li><li>Formal languages</li><li>LaTeX</li>
+        </ul>
+        <div class="links">
+          <a class="btn alt" href="files/zach-archibald-a-glimpse-of-computability-theory-in-fractal-geometry-slides.pdf" target="_blank" rel="noopener">SLIDES ↗</a>
+          <a class="btn" href="files/zach-archibald-a-glimpse-of-computability-theory-in-fractal-geometry.pdf" target="_blank" rel="noopener">PAPER ↗</a>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <footer>
+    <div class="rule"></div>
+    <div class="foot">ZACH ARCHIBALD 2026</div>
+  </footer>
+
+</div>
+
+<script>
+  // scale each 1100px-wide diagram iframe to its panel; observing the panel
+  // also catches the moment a hidden tab is first shown
+  const diagrams=new ResizeObserver(entries=>{
+    for(const {target} of entries){
+      const w=target.clientWidth, f=target.querySelector('iframe');
+      if(w&&f) f.style.transform=`scale(${w/1100})`;
+    }
+  });
+  document.querySelectorAll('.panel.diagram').forEach(p=>diagrams.observe(p));
+
+  // tabbed project windows: click or arrow keys switch panels
+  document.querySelectorAll('.tabs').forEach(list=>{
+    const tabs=[...list.querySelectorAll('[role="tab"]')];
+    const select=tab=>{
+      tabs.forEach(t=>{
+        const on=t===tab;
+        t.setAttribute('aria-selected',on);
+        t.tabIndex=on?0:-1;
+        document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+      });
+    };
+    tabs.forEach((tab,i)=>{
+      tab.addEventListener('click',()=>select(tab));
+      tab.addEventListener('keydown',e=>{
+        if(e.key!=='ArrowRight'&&e.key!=='ArrowLeft') return;
+        const next=tabs[(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length];
+        select(next); next.focus();
+      });
+    });
+  });
+</script>
+</body>
+</html>
