@@ -6,6 +6,7 @@
 <title>ZACH ARCHIBALD — Portfolio</title>
 <meta name="description" content="Selected work by Zach Archibald, backend + data engineer.">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="background.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Rock+Salt&family=Archivo:wght@400;600;800&display=swap" rel="stylesheet">
@@ -20,7 +21,7 @@
   html{background:var(--ivory)}
   body{background:var(--ivory);color:var(--black);font-family:var(--body);
     line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  .wrap{max-width:960px;margin:0 auto;padding:0 22px}
+  .wrap{max-width:960px;margin:0 auto;padding:0 22px;position:relative;z-index:2}
 
   /* ---------- header ---------- */
   .top{display:flex;justify-content:space-between;align-items:center;padding:20px 0 0}
@@ -30,8 +31,6 @@
     transition:transform .12s,box-shadow .12s}
   .back:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--black)}
   .back:focus-visible{outline:3px dashed var(--black);outline-offset:3px}
-  .count{font-family:var(--scrawl);font-size:11px;letter-spacing:.06em;opacity:.6;
-    text-transform:uppercase}
 
   .hero{padding:48px 0 0}
   h1{font-family:var(--marker);font-weight:400;line-height:1;font-size:clamp(56px,14vw,112px);
@@ -64,14 +63,10 @@
   .shot{border:3px solid var(--black);box-shadow:5px 5px 0 var(--black);background:var(--ivory);
     align-self:start}
   .shot .bar{display:flex;gap:6px;padding:7px 9px;border-bottom:3px solid var(--black);background:#fff}
-  .shot .bar i{width:10px;height:10px;border:2px solid var(--black);border-radius:50%}
-  .shot .bar i:nth-child(1){background:var(--red)}
-  .shot .bar i:nth-child(2){background:var(--yellow)}
-  .shot .bar i:nth-child(3){background:var(--green)}
   .shot img{display:block;width:100%;height:auto}
   /* tabs live in the window's title bar */
   .shot .bar{align-items:center}
-  .tabs{margin-left:auto;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px}
   .tabs button{font-family:var(--marker);font-size:12px;line-height:1;color:var(--black);
     background:var(--ivory);border:2px solid var(--black);padding:4px 9px;cursor:pointer;
     transition:transform .12s,box-shadow .12s}
@@ -92,6 +87,37 @@
   .panel.diagram iframe{position:absolute;top:0;left:0;width:1100px;height:850px;border:0;
     transform-origin:0 0;pointer-events:none}
   .panel.diagram .enlarge{position:absolute;inset:0;z-index:1}
+  .wide .panel{position:relative}
+  .zoomable{cursor:zoom-in}
+  .shot .bar .expand{flex:none;width:30px;height:30px;margin-left:auto;box-shadow:2px 2px 0 var(--black)}
+  .shot .bar .expand:hover{box-shadow:4px 4px 0 var(--black)}
+  .shot .bar .expand svg{width:15px;height:15px}
+  .zoom-hint{display:none;position:absolute;right:10px;bottom:10px;z-index:2;pointer-events:none;
+    font-family:var(--marker);font-size:12px;line-height:1;color:var(--black);
+    background:#fff;border:2px solid var(--black);padding:4px 8px}
+  /* touch screens: no hover or cursor, so swap the expand button for a static label */
+  @media(hover:none){
+    .shot .bar .expand{display:none}
+    .zoom-hint{display:block}
+  }
+
+  /* zoom popup */
+  dialog.zoom{margin:auto;padding:0;border:3px solid var(--black);box-shadow:8px 8px 0 var(--black);
+    background:var(--ivory);color:var(--black);max-width:none;max-height:none;overflow:visible}
+  dialog.zoom::backdrop{background:rgba(20,18,16,.72)}
+  html:has(dialog.zoom[open]){overflow:hidden}
+  .zoom-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:8px 10px 8px 14px;border-bottom:3px solid var(--black);background:#fff}
+  .zoom-title{font-family:var(--marker);font-size:15px;line-height:1.1}
+  .zoom-bar .acts{display:flex;align-items:center;gap:12px}
+  .zoom-bar .newtab{font-weight:700;font-size:13px;color:var(--cobalt);white-space:nowrap}
+  .zoom-bar .ctrl{width:34px;height:34px}
+  .zoom-bar .ctrl svg{width:16px;height:16px}
+  .zoom-stage{overflow:auto;background:var(--ivory)}
+  .zoom-inner{position:relative}
+  .zoom-inner iframe{position:absolute;top:0;left:0;border:0;transform-origin:0 0}
+  .zoom-inner img{display:block;width:100%;height:100%}
+  @media(max-width:560px){.zoom-bar .newtab{display:none}}
 
   .story{display:flex;flex-direction:column;gap:16px}
   .story h3{font-family:var(--marker);font-weight:400;font-size:15px;line-height:1;
@@ -142,8 +168,6 @@
     .case-body{grid-template-columns:1fr}
     .hood ul{grid-template-columns:1fr}
     .wide .story{grid-template-columns:1fr;gap:16px}
-    .shot .bar i{display:none}
-    .tabs{margin-left:0;justify-content:flex-start}
     .case-head{flex-direction:column-reverse;gap:10px}
   }
   @media(prefers-reduced-motion:reduce){*{transition:none!important}
@@ -151,11 +175,11 @@
 </style>
 </head>
 <body>
+<script src="background.js"></script>
 <div class="wrap">
 
   <header class="top">
     <a class="back" href="/">← home</a>
-    <span class="count">2 projects</span>
   </header>
 
   <section class="hero">
@@ -181,30 +205,36 @@
       <div class="case-body">
         <figure class="shot tabbed">
           <div class="bar">
-            <i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i>
             <div class="tabs" role="tablist" aria-label="Project views">
               <button role="tab" id="ldt-tab-shot" aria-controls="ldt-shot" aria-selected="true">CLIENT SCREENSHOT</button>
               <button role="tab" id="ldt-tab-sys" aria-controls="ldt-sys" aria-selected="false" tabindex="-1">SYSTEM OVERVIEW</button>
               <button role="tab" id="ldt-tab-mod" aria-controls="ldt-mod" aria-selected="false" tabindex="-1">BACKEND ARCHITECTURE</button>
             </div>
+            <button class="ctrl expand" type="button" aria-label="Zoom in on this view" title="Zoom in">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#141210" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><polyline points="14 4 20 4 20 10"/><line x1="20" y1="4" x2="13.5" y2="10.5"/><polyline points="10 20 4 20 4 14"/><line x1="4" y1="20" x2="10.5" y2="13.5"/></svg>
+            </button>
           </div>
           <div class="panel" role="tabpanel" id="ldt-shot" aria-labelledby="ldt-tab-shot">
-            <a href="img/ldt-screenshot.png" target="_blank" rel="noopener" title="Open full size">
+            <a class="zoomable" data-zoom="img" href="img/ldt-screenshot.png" target="_blank" rel="noopener"
+              aria-label="Zoom in on the client screenshot">
               <img src="img/ldt-screenshot.png" width="1440" height="664"
                 alt="The draft board: your team and enemy team pick slots on either side, ban rows below, and a ranked list of recommended champions in the middle">
             </a>
+            <span class="zoom-hint" aria-hidden="true">TAP TO ZOOM</span>
           </div>
           <div class="panel diagram" role="tabpanel" id="ldt-sys" aria-labelledby="ldt-tab-sys" hidden>
             <iframe src="ldt-system-overview.html" width="1100" height="850" loading="lazy" tabindex="-1"
               title="System overview: the React client on Cloudflare Pages, the FastAPI service on Cloud Run, Neon Postgres, GitHub Actions workflows, and the Riot API and Data Dragon CDN"></iframe>
-            <a class="enlarge" href="ldt-system-overview.html" target="_blank" rel="noopener" title="Open full size"
-              aria-label="Open the system overview diagram full size"></a>
+            <a class="enlarge zoomable" data-zoom="frame" href="ldt-system-overview.html" target="_blank" rel="noopener"
+              aria-label="Zoom in on the system overview diagram"></a>
+            <span class="zoom-hint" aria-hidden="true">TAP TO ZOOM</span>
           </div>
           <div class="panel diagram" role="tabpanel" id="ldt-mod" aria-labelledby="ldt-tab-mod" hidden>
             <iframe src="ldt-backend-architecture.html" width="1100" height="850" loading="lazy" tabindex="-1"
               title="Backend architecture: main.py and api/ on the request path, cli.py and pipeline/ on the batch path, both using services, domain and db/, with external/riot_api.py calling the Riot API and Data Dragon"></iframe>
-            <a class="enlarge" href="ldt-backend-architecture.html" target="_blank" rel="noopener" title="Open full size"
-              aria-label="Open the backend architecture diagram full size"></a>
+            <a class="enlarge zoomable" data-zoom="frame" href="ldt-backend-architecture.html" target="_blank" rel="noopener"
+              aria-label="Zoom in on the backend architecture diagram"></a>
+            <span class="zoom-hint" aria-hidden="true">TAP TO ZOOM</span>
           </div>
         </figure>
 
@@ -304,6 +334,19 @@
 
 </div>
 
+<dialog class="zoom" id="zoom" aria-labelledby="zoomTitle">
+  <div class="zoom-bar">
+    <span class="zoom-title" id="zoomTitle"></span>
+    <span class="acts">
+      <a class="newtab" id="zoomNewtab" target="_blank" rel="noopener">open in new tab ↗</a>
+      <button class="ctrl" id="zoomClose" aria-label="Close" autofocus>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#141210" stroke-width="2.8" stroke-linecap="round"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+      </button>
+    </span>
+  </div>
+  <div class="zoom-stage" id="zoomStage"></div>
+</dialog>
+
 <script>
   // scale each 1100px-wide diagram iframe to its panel; observing the panel
   // also catches the moment a hidden tab is first shown
@@ -314,6 +357,53 @@
     }
   });
   document.querySelectorAll('.panel.diagram').forEach(p=>diagrams.observe(p));
+
+  // zoom popup: diagrams (fixed 1100x850 pages) and screenshots open in a dialog,
+  // scaled to fit the screen; on small screens they stay readable and scroll
+  (function(){
+    const dlg=document.getElementById('zoom'); if(!dlg||!dlg.showModal) return;
+    const stage=document.getElementById('zoomStage'), title=document.getElementById('zoomTitle'),
+          newtab=document.getElementById('zoomNewtab');
+    let item=null;
+    const layout=()=>{
+      if(!item) return;
+      const bar=dlg.querySelector('.zoom-bar').offsetHeight;
+      const W=innerWidth-40, H=innerHeight-40-bar;
+      let s=Math.min(W/item.w,H/item.h,item.max);
+      s=Math.max(s,Math.min(item.min,item.max));
+      const inner=stage.firstElementChild;
+      inner.style.width=item.w*s+'px'; inner.style.height=item.h*s+'px';
+      const f=inner.querySelector('iframe'); if(f) f.style.transform=`scale(${s})`;
+      stage.style.width=Math.min(item.w*s,W)+'px'; stage.style.height=Math.min(item.h*s,H)+'px';
+    };
+    const open=a=>{
+      const frame=a.dataset.zoom==='frame', panel=a.closest('[role="tabpanel"]');
+      const tab=panel&&document.getElementById(panel.getAttribute('aria-labelledby'));
+      title.textContent=tab?tab.textContent:'';
+      newtab.href=a.href;
+      if(frame){
+        item={w:1100,h:850,max:1.6,min:.6};
+        stage.innerHTML=`<div class="zoom-inner"><iframe src="${a.getAttribute('href')}" width="1100" height="850" title="${title.textContent}"></iframe></div>`;
+      }else{
+        const img=a.querySelector('img');
+        item={w:img.naturalWidth||+img.getAttribute('width'),h:img.naturalHeight||+img.getAttribute('height'),max:1,min:.45};
+        stage.innerHTML=`<div class="zoom-inner"><img src="${img.currentSrc||img.src}" alt="${img.alt.replace(/"/g,'&quot;')}"></div>`;
+      }
+      dlg.showModal(); layout();
+    };
+    document.querySelectorAll('a.zoomable').forEach(a=>a.addEventListener('click',e=>{
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.button!==0) return; // let new-tab clicks through
+      e.preventDefault(); open(a);
+    }));
+    document.querySelectorAll('.expand').forEach(b=>b.addEventListener('click',()=>{
+      const a=b.closest('figure').querySelector('[role="tabpanel"]:not([hidden]) a.zoomable');
+      if(a) open(a);
+    }));
+    document.getElementById('zoomClose').addEventListener('click',()=>dlg.close());
+    dlg.addEventListener('click',e=>{if(e.target===dlg) dlg.close();}); // backdrop
+    dlg.addEventListener('close',()=>{stage.innerHTML='';item=null;});
+    addEventListener('resize',layout);
+  })();
 
   // tabbed project windows: click or arrow keys switch panels
   document.querySelectorAll('.tabs').forEach(list=>{
